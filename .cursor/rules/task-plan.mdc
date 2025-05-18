@@ -1,0 +1,79 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+
+# Task Planning
+
+These instructions guides the creation of a task plan file (`docs/tasks/<YYYY-MM-DD-task-name>.md`) based on user request and project documentation.*
+
+## Before You Begin, Capture the Date
+
+Obtain the date through a terminal command (e.g.,`date +"%Y-%m-%d-%H-%M"`) in the following format: `YYYY-MM-DD-HH-MM`.
+
+## Gather Context from `docs/` and `NOTES.md`
+
+**Crucial:** Find and thoroughly read all relevant files in the `docs/` directory to gather context. **Prioritize `docs/PRD.md`, `docs/TECH_STACK.md`, `docs/openapi.yaml`, and any logging‑ or testing‑related docs such as `docs/logging.md`, `docs/LOGGING_GUIDE.md`, `docs/TEST_STRATEGY.md` if they exist.** This information is *essential* for creating an accurate and useful task plan.
+
+### Core Directive
+
+Create and maintain a `docs/tasks/<YYYY-MM-DD-task-name>.md` file. This file outlines a step‑by‑step plan (up to 5 commits) for the user's coding task. The plan **must** be based on details found in the project's `docs/` directory to ensure incremental implementation with verification **and must explicitly incorporate both testing and logging best practices (see “Testing & Observability Priority” below).**
+
+### Strict Limitations
+
+* **File Operations:** It is **essential** to gather context by thoroughly reading relevant files in the `docs/` directory (prioritizing `docs/PRD.md`, `docs/TECH_STACK.md`, `docs/openapi.yaml`, `docs/logging*.md`, `docs/TEST*.md`, `NOTES.md`). This information **must** inform the task plan. You are permitted to read/write ONLY the specific task file (`docs/tasks/<YYYY-MM-DD-task-name>.md`).
+* **Communication:** You are forbidden from generating any conversational output, commentary, preamble, or summaries, except for the initial file‑naming instruction block specified in "Before You Begin". Your entire output must be the content of the `docs/tasks/<YYYY-MM-DD-task-name>.md` file itself.
+* **User Interaction:** You do not directly converse with the user beyond receiving the initial task description and providing the output file. If the task description, even after cross‑referencing with all available `docs/` materials, is insufficient to create a coherent and specific plan, you will indicate this *within* the `docs/tasks/<YYYY-MM-DD-task-name>.md` file using the specific comment format detailed below.
+
+### Testing & Observability Priority
+
+1. **Primary Verification = Automated Tests**
+   * **First choice: Unit tests** (small, isolated, fast).
+   * **Second choice: Integration tests** (broader scope, e2e, contract, etc.).
+   * **Fallback: Explicit runtime logging or debug output** *only if an automated test is genuinely infeasible.*
+2. **Logging Is Always Required**
+   Even when tests exist, each commit must also include relevant logging or debug statements for additional runtime visibility. Logging should be **toggle‑able** (e.g., via environment variable like `LOG_LEVEL`, feature flag, or build‑time switch) so it can be switched on/off without code changes.
+3. **Structured & Centralised Logs**
+   Prefer structured output (JSON or clear key=value) and respect the stack’s log aggregation tooling. Reference the exact logger configuration file (e.g., `src/logger.ts` using `pino`, `src/lib/log.ts` with `winston`).
+4. **Verification Hierarchy in Commit Plans**
+
+   * If a **unit test** verifies the change, list the exact test command (e.g., `pnpm test --filter locale-utils`) and expected assertion snapshot.
+   * Otherwise, if an **integration test** is used, specify the script (e.g., `pnpm test:e2e ./test/auth/login.spec.ts`) and expected outcome.
+   * If neither test type is feasible, detail **log inspection steps** (e.g., `tail -f logs/app.log | jq '.msg' | grep "payment succeeded"`).
+
+### `docs/tasks/<YYYY-MM-DD-task-name>.md` Structure and Content Source
+
+The task file **must** be structured as a sequence of planned commits. Your primary source is the user's task description, **validated and enriched** with exact details from relevant `docs/` files. Neglecting these documents is a critical failure.
+
+#### Task Breakdown Structure
+
+Each commit title must follow semantic‑commit style (`feat: …`, `fix: …`, `test: …`, `docs: …`).
+
+```markdown
+# Task: [Brief Task Title – inspired by docs/PRD.md or user input]
+
+## Commit 1: [type: Descriptive Title]
+**Description:**
+[*Required Detail:* Explain the goal with specific file paths (`src/pages/login.tsx`), function names (`handleSubmit`), CLI commands (`npx prisma migrate`), imports, AND any logger/test files touched (e.g., `tests/unit/login.test.ts`, `src/logger.ts`).]
+
+**Verification:**
+1. **Unit / Integration Test:** Provide the exact command to run (e.g., `pnpm vitest run login.test.ts`). Include expected assertion or snapshot reference.  
+2. **Log Check (if no test possible):** Provide commands or dashboard query to confirm logs (e.g., `kubectl logs api | grep "user_created"`).
+
+---
+
+## Commit 2: …
+```
+
+*(Repeat for up to 5 commits)*
+
+#### Handling Insufficient Information & Ambiguity
+
+If, after **thorough review** of `docs/`, you still lack the necessary details, do **not** invent them. Instead insert an HTML comment:
+
+```html
+<!-- TODO: Need API endpoint path for user creation (see docs/openapi.yaml) -->
+```
+
+and proceed once clarified.

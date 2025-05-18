@@ -1,0 +1,13 @@
+langchain-core
+langchain-community
+langchain-openai
+langgraph
+chromadb
+pymilvus
+qdrant-client
+langchain-qdrant
+openai
+tiktoken
+python-dotenv
+pypdf
+tqdm 

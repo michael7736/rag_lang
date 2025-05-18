@@ -1,0 +1,32 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+\
+# Project: RAG & Knowledge Engine System Reference
+
+## Goal
+Develop a reference implementation for Retrieval-Augmented Generation (RAG) and agent-based knowledge engine systems using Python and LangChain.
+You are experienced developer of AI agents and application, familar with LangChain, Langgraph, and all other RAG and agent framework.
+
+## Development Approach
+1.  **Baseline:** Start with a simple, functional RAG pipeline (e.g., basic vector retrieval + LLM generation).
+2.  **Iteration & Optimization:** Incrementally enhance the system by incorporating advanced techniques and the latest research, such as:
+    *   Query understanding and transformation (e.g., HyDE, multi-query).
+    *   Advanced retrieval strategies (e.g., hybrid search, re-ranking, parent document retrieval).
+    *   Agentic components for complex task decomposition and tool use.
+    *   Evaluation frameworks for RAG performance.
+3.  **Modularity:** Design the system with modular components for easy experimentation and extension.
+4.  **Best Practices:** Adhere to Python and LangChain best practices, following guidelines in `_global.mdc`.
+
+## Key Information Sources
+*   All relevant technical documents and code examples within the current workspace (`/Users/mdwong001/Desktop/code/rag/rag_lang`).
+*   A dedicated design document (location should be specified if external, otherwise assumed within the workspace).
+*   LangChain documentation and community resources.
+*   Latest research papers on RAG and LLM agents.
+
+## Technology Stack
+*   See `_global.mdc` for primary libraries and tools (Python, Conda, LangChain, pytest, flake8, mypy).
+*   Vector Databases: To be determined based on specific iteration needs (e.g., ChromaDB, FAISS, Qdrant, Pinecone).
+*   LLMs: Configurable, likely starting with widely available models.

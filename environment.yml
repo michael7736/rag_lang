@@ -1,0 +1,62 @@
+name: rag_lang_test
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - tqdm 
+  - pypdf 
+  - pytest
+  - flake8
+  - mypy
+  - python-dotenv
+  - openai 
+  - tiktoken 
+
+  - pip:
+    - langchain-core
+    - langchain-community
+    - langchain-openai
+    - langgraph
+    # - langchain-weaviate # Temporarily removed
+    - langchain-qdrant 
+    - chromadb
+    - pymilvus
+    # - weaviate-client~=3.26.2 # Temporarily removed
+    - qdrant-client
+
+  # Minimal Conda dependencies
+  - tqdm 
+  - pypdf # For PDF loading, has C bindings that Conda handles well
+  - pytest
+  - flake8
+  - mypy
+  - python-dotenv
+  - openai # OpenAI client, often has C dependencies, good with Conda
+  - tiktoken # Has Rust components, Conda is good for this
+  # Core LangChain (let conda/pip pick latest compatible)
+  - langchain-core
+  - langchain-community
+  - langchain-openai # For OpenAI compatible APIs and embeddings
+  - langgraph
+  # Vector Store Core (ChromaDB is often fine with Conda)
+  - chromadb
+  # LLM & Embeddings support
+  - openai
+  - tiktoken
+  # Document Loaders
+  - pypdf
+  # Testing
+  - pytest
+  # Linting & Formatting
+  - flake8
+  - mypy
+  # Optional: for notebooks
+  # - jupyter
+  # Other useful libraries
+  - tqdm # Progress bars
+  - pip:
+    - pymilvus
+    # - weaviate-client~=3.26.2 # Temporarily removed
+    - langchain-weaviate # Keep this, it might have v3 compatibility logic 

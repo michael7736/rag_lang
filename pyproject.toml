@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag_lang"
+version = "0.1.0"
+description = "Reference implementation for RAG and Knowledge Engine Systems using LangChain."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License", # Choose your license
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "langchain-core",
+    "langchain-community",
+    "langchain-openai",
+    "langgraph",
+    "chromadb",
+    "pymilvus",
+    # "weaviate-client~=3.26.2", # Temporarily removed
+    "qdrant-client",
+    # "langchain-weaviate", # Temporarily removed
+    "langchain-qdrant", # Added new Qdrant integration package
+    "openai",
+    "tiktoken",
+    "python-dotenv",
+    "pypdf",
+    "tqdm",
+    # Add other core dependencies here if needed
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "flake8",
+    "mypy",
+    # "ruff", # Alternative to flake8/mypy
+    # "black", # Code formatter
+    # "jupyter",
+]
+
+# [project.urls]
+# "Homepage" = ""  # Add your project homepage if available
+# "Bug Tracker" = "" # Add your issue tracker URL
+
+# --- Tool Configurations --- 
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true # Often needed for LangChain ecosystem
+exclude = ['tests/'] # Example: exclude tests if needed
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203" # Ignore whitespace before ':' - conflicts with black
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "build",
+    "dist",
+    ".mypy_cache"
+] 

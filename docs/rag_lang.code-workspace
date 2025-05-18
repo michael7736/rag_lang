@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../langgraph"
+		},
+		{
+			"path": "../../langchain-academy"
+		},
+		{
+			"path": "../../Lang_rag_example"
+		},
+		{
+			"path": "../../langchain"
+		},
+		{
+			"path": "../../mem0"
+		},
+		{
+			"path": "../../e2e"
+		},
+		{
+			"path": "../../data"
+		},
+		{
+			"path": "../../evaluation"
+		}
+	],
+	"settings": {}
+}
